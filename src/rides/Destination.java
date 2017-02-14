@@ -1,3 +1,4 @@
+package rides;
 
 public class Destination {
 	private String destinationName;

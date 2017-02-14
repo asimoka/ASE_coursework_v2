@@ -1,3 +1,4 @@
+package rides;
 
 public class Taxi {
 	private String plateNumber;

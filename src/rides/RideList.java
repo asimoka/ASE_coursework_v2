@@ -13,7 +13,7 @@ public class RideList {
 	private ArrayList<Destination> destinationList;
 	private ArrayList<Journey> journeyList;
 	private ArrayList<Journey> journeyLastYearList;
-	
+
 	
 	
 	public RideList() {
@@ -51,6 +51,28 @@ public class RideList {
      return journeyList;
     }
 	
+	public String getFiveExpensiveJourney() {
+		String fiveExpJourney="";
+		
+		for (int i=0;i<5;i++)
+		{
+			fiveExpJourney += sortByFarePrice().get(i).toString();
+		}
+		
+		return fiveExpJourney;
+	}
+	
+	public String getFiveCheapJourney() {
+		String fiveCheapJourney="";
+		int l = journeyList.size();
+		
+		for (int i=l-5;i<l;i++)
+		{
+			fiveCheapJourney += sortByFarePrice().get(i).toString();
+		}
+		return fiveCheapJourney;
+		
+	}
 	
 	
 

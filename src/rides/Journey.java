@@ -54,6 +54,10 @@ public class Journey {
 	public void setFare(Double fare) {
 		this.fare = fare;
 	}
+	
+	public String toString(Journey j) {
+		return "The trip to " + getDestination() + " cost " + Double.toString(getFare()) + ".";
+	}
 
 }
 

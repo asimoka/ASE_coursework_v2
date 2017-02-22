@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
@@ -94,9 +95,16 @@ public class RideList {
 	public Set<String> getDestinationsLastYear() {
 		
 		Set<String> journeys = new HashSet<String>();
+		boolean thisYear;
 		
 		for (String j : journeyLastYearList) {
-			if (!journeyList.contains(j)) {
+			thisYear = false;
+			for (Journey k : journeyList) {
+				if(k.getDestination().equals(j)) {
+					thisYear = true;
+		        }
+			}
+			if (!thisYear) {
 				journeys.add(j);
 			}
 		}
@@ -126,6 +134,7 @@ public class RideList {
 		//adds each new driver as a key and new destination as a value into a list
 		for (Journey j :journeyList){
 			String plateNum=j.getTaxiRegNumber();
+			String driverName;
 			try {
 				driverName = driverNamebyRegNumb(plateNum);
 			} catch (noMatchingDriverException e) {
@@ -147,7 +156,7 @@ public class RideList {
 	}
 	
 	//method for getting drivers names by taxi registration number
-	public String driverNamebyRegNumb(String regNumber)
+	public String driverNamebyRegNumb(String regNumber) throws noMatchingDriverException
 	{
 		for (int i=0;i<taxiList.size();i++)
 		{

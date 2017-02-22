@@ -62,7 +62,7 @@ public class RideList {
 		
 		for (int i=0;i<5;i++)
 		{
-			fiveExpJourney += sortByFarePrice().get(i).toString();
+			fiveExpJourney += sortByFarePrice().get(i).toString()+"\n";
 		}
 		
 		fiveExpJourney +="\n\nCHARGES FOR THE TOP 5 MOST EXPENSIVE JOURNEYS \n";
@@ -70,7 +70,7 @@ public class RideList {
 		
 		for (int i=l-5;i<l;i++)
 		{
-			fiveExpJourney += sortByFarePrice().get(i).toString();
+			fiveExpJourney += sortByFarePrice().get(i).toString()+"\n";
 		}
 		return fiveExpJourney;
 	}

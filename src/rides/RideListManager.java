@@ -22,7 +22,6 @@ public class RideListManager {
 	private String 	 destination;
 	private Double 	 travelDistance;
 	private int 	 numPassengers;
-	private Double 	 fare;
 	private String 	 driverName;
 	private String 	 carType;
 

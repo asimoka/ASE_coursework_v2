@@ -96,51 +96,7 @@ public class RideListManager {
 	        }   	
 	    }
 	 //
-	public void readerJourney(String filename) {
-		try{
-			File inFile = new File(filename);
-
-			Scanner input = new Scanner(inFile);
-			String journeys = input.nextLine();
-
-			if (journeys.length() != 0) 
-				processLineJourney(journeys);
-			input.close();
-
-		} catch (FileNotFoundException ex) {
-			System.out.printf("ERROR: File Not Found", ex);
-		}
-	}
-	public void readerDestination(String filename) {
-		try{
-			File inFile = new File(filename);
-
-			Scanner input = new Scanner(inFile);
-			String destination = input.nextLine();
-
-			if (destination.length() != 0) 
-				processLineDestination(destination);
-			input.close();
-
-		} catch (FileNotFoundException ex) {
-			System.out.printf("ERROR: File Not Found", ex);
-		}
-	}
-	public void readerTaxi() {
-		try{
-			File inFile = new File("taxiDetailsInput.csv");
-
-			Scanner input = new Scanner(inFile);
-			String taxi = input.nextLine();
-
-			if (taxi.length() != 0) 
-				processLineTaxi(taxi);
-			input.close();
-
-		} catch (FileNotFoundException ex) {
-			System.out.printf("ERROR: File Not Found", ex);
-		}
-	}
+	
 	public void processLineJourney(String line) {
 		try {
 			String [] inline = line.split(",");
@@ -148,7 +104,15 @@ public class RideListManager {
 			destination = inline[1];
 			travelDistance = Double.parseDouble(inline[2]);
 			numPassengers = Integer.parseInt(inline[3]);
-			fare = Double.parseDouble(inline[4]);
+			double halfPriceDestination=0;
+			if (travelDestination>10)
+			{halfPriceDestination=travelDestination-10;
+			 travelDestination=10;
+			fare=(destination().travelDistance()*2+halfPriceDestination);}
+		 	else
+			{fare=(destination().travelDistance()*2);}
+			if (fare<3){fare=3;}
+			
 
 			Journey j = new Journey(taxiRegNumber, destination, travelDistance, numPassengers, fare);
 			rideList.addJourney(j);

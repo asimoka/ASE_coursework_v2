@@ -56,8 +56,9 @@ public class RideList {
      return journeyList;
     }
 	
+	//returns a report of the 5 most expensive journeys
 	public String getFiveExpensiveJourney() {
-		String fiveExpJourney="";
+		String fiveExpJourney="CHARGES FOR THE TOP 5 MOST EXPENSIVE JOURNEYS \n";
 		
 		for (int i=0;i<5;i++)
 		{
@@ -67,8 +68,9 @@ public class RideList {
 		return fiveExpJourney;
 	}
 	
+	//returns a report of the 5 cheapest journeys
 	public String getFiveCheapJourney() {
-		String fiveCheapJourney="";
+		String fiveCheapJourney="CHARGES FOR THE TOP 5 LEAST EXPENSIVE JOURNEYS \n";
 		int l = journeyList.size();
 		
 		for (int i=l-5;i<l;i++)

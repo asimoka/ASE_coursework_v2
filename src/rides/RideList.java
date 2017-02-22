@@ -130,7 +130,7 @@ ArrayList<String> journeys = new ArrayList<String>();
 				driverName = driverNamebyRegNumb(plateNum);
 			} catch (noMatchingDriverException e) {
 				// TODO Auto-generated catch block
-				driverName="--driver not found corresponding to--"+e;
+				driverName="--"+e;
 			}
 			if (destinationsList.containsKey(driverName)) 
 			{

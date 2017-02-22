@@ -35,20 +35,10 @@ public class RideList {
 		destinationList.add(d);
 	}
 	public void addJourney(Journey j) {
-		if (destinationList.contains(j.getDestination()) ) {
-			journeyList.add(j);
-		}
-		else {
-			throw new InputMismatchException("Destination specified for journey is not a valid destination!");
-		}
+		journeyList.add(j);
 	}
 	public void addJourneyLastYear(Journey q) {
-		if (destinationList.contains(q.getDestination()) ) {
-			journeyLastYearList.add(q);
-		}
-		else {
-			throw new InputMismatchException("Destination specified for journey is not a valid destination!");
-		}
+		journeyLastYearList.add(q);
 	}
 	
 	public Destination getDestination(int i){
@@ -68,14 +58,14 @@ public class RideList {
 	
 	//returns a report of the 5 most expensive journeys
 	public String getFiveExpensiveCheapestJourney() {
-		String fiveExpJourney="CHARGES FOR THE TOP 5 MOST EXPENSIVE JOURNEYS \n";
+		String fiveExpJourney="CHARGES FOR THE TOP 5 LEAST EXPENSIVE JOURNEYS \n";
 		
 		for (int i=0;i<5;i++)
 		{
 			fiveExpJourney += sortByFarePrice().get(i).toString();
 		}
 		
-		fiveExpJourney +="\n\nCHARGES FOR THE TOP 5 LEAST EXPENSIVE JOURNEYS \n";
+		fiveExpJourney +="\n\nCHARGES FOR THE TOP 5 MOST EXPENSIVE JOURNEYS \n";
 		int l = journeyList.size();
 		
 		for (int i=l-5;i<l;i++)
@@ -84,6 +74,8 @@ public class RideList {
 		}
 		return fiveExpJourney;
 	}
+	
+	
 	
 	public ArrayList<String> getDestinationsThisYear() {
 		
@@ -152,7 +144,6 @@ ArrayList<String> journeys = new ArrayList<String>();
 	//method for getting drivers names by taxi registration number
 	public String driverNamebyRegNumb(String regNumber)
 	{
-		
 		for (int i=0;i<taxiList.size();i++)
 		{
 			if (taxiList.get(i).getPlateNumber().equals(regNumber))
@@ -163,7 +154,6 @@ ArrayList<String> journeys = new ArrayList<String>();
 			
 		}
 		return "--Driver not found--";
-	
 	}
 	
 	//method that creates a string version of the treemap values ready for output

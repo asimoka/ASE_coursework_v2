@@ -117,11 +117,6 @@ public class RideListManager {
 					+ line + "' - " + nfe.getMessage();
 			System.out.println(error);
 		}
-		catch (incorrectLicensePlateException ilpe) {
-			String error = "Input mismatch error in '"
-					+ line + "' - " + ilpe.getMessage();
-			System.out.println(error);
-		}
 		//this catches missing items if only one or two items
 		//other omissions will result in other errors
 		catch (ArrayIndexOutOfBoundsException air) {

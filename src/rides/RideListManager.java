@@ -114,22 +114,8 @@ public class RideListManager {
 			destination = inline[1];
 			travelDistance = Double.parseDouble(inline[3]);
 			numPassengers = Integer.parseInt(inline[2]);
-			double halfPriceDestination=0;
-			double fullPriceDestination=0;
-			if (travelDistance>10) {
-				halfPriceDestination=travelDistance-10;
-				fullPriceDestination=10.0;
-				fare=(fullPriceDestination*2+halfPriceDestination);
-				}
-		 	else {
-		 		fare=(travelDistance*2);
-		 		}
-			if (fare<3){
-				fare=3.0;
-				}
-			
-
-			Journey j = new Journey(taxiRegNumber, destination, travelDistance, numPassengers, fare);
+	
+			Journey j = new Journey(taxiRegNumber, destination, travelDistance, numPassengers);
 			rideList.addJourney(j);
 		} catch (NumberFormatException nfe) {
 			String error = "Number conversion error in '"

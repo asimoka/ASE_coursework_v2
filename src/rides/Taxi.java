@@ -1,18 +1,17 @@
 package rides;
 
-import java.util.InputMismatchException;
 
 public class Taxi {
 	private String plateNumber;
 	private String driverName;
 	private String carType;
 	
-	public Taxi(String plateNo, String carType, String driverName){
+	public Taxi(String plateNo, String carType, String driverName) throws incorrectLicensePlateException{
 		if (validPlateNumber(plateNo)) {
 			this.plateNumber=plateNo;
 		}
 		else {
-			throw new InputMismatchException("Licence Plate number is in the wrong format!");
+			throw new incorrectLicensePlateException(plateNo);
 		}
 		this.carType=carType;
 		this.driverName=driverName;

@@ -8,13 +8,13 @@ public class Journey {
 	private int numPassengers;
 	private Double fare;
 
-	public Journey(String tRegNo, String dest, Double tDist, int numPass) throws incorrectLicensePlateException {
-		if (validPlateNumber(tRegNo)) {
+	public Journey(String tRegNo, String dest, Double tDist, int numPass) { //throws incorrectLicensePlateException {
+		//if (validPlateNumber(tRegNo)) {
 			this.taxiRegNumber=tRegNo;
-		}
-		else {
-			throw new incorrectLicensePlateException(tRegNo);
-		}
+		//}
+		//else {
+		//	throw new incorrectLicensePlateException(tRegNo);
+		//}
 		this.destination=dest;
 		this.travelDistance=tDist;
 		this.numPassengers=numPass;
@@ -48,15 +48,15 @@ public class Journey {
 	}
 	
 	public void setTaxiRegNumber(String taxiRegNumber) throws incorrectLicensePlateException {
-		if (validPlateNumber(taxiRegNumber)) {
+		//if (validPlateNumber(taxiRegNumber)) {
 			this.taxiRegNumber = taxiRegNumber;
-		}
-		else {
-			throw new incorrectLicensePlateException(taxiRegNumber);
-		}
+		//}
+		//else {
+		//	throw new incorrectLicensePlateException(taxiRegNumber);
+		//}
 	}
 	//check that license plate number is in the correct format
-	public boolean validPlateNumber(String plateNumber) {
+/*	public boolean validPlateNumber(String plateNumber) {
 		//check license plate has the correct length
 		if (plateNumber.trim().length() != 7) {
 			return false;
@@ -71,7 +71,7 @@ public class Journey {
 		else {
 			return false;
 		}
-	}
+	}*/
 	
 	//getter and setter for destination
 	public String getDestination() {

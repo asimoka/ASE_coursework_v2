@@ -8,7 +8,12 @@ public class Journey {
 	private Double fare;
 
 	public Journey(String tRegNo, String dest, Double tDist, int numPass, Double fare) {
-		this.taxiRegNumber=tRegNo;
+		if (validPlateNumber(tRegNo)) {
+			this.taxiRegNumber=tRegNo;
+		}
+		else {
+			throw new InputMismatchException("Licence Plate number is in the wrong format!");
+		}
 		this.destination=dest;
 		this.travelDistance=tDist;
 		this.numPassengers=numPass;
@@ -19,8 +24,31 @@ public class Journey {
 	public String getTaxiRegNumber() {
 		return taxiRegNumber;
 	}
+	
 	public void setTaxiRegNumber(String taxiRegNumber) {
-		this.taxiRegNumber = taxiRegNumber;
+		if (validPlateNumber(taxiRegNumber)) {
+			this.taxiRegNumber = taxiRegNumber;
+		}
+		else {
+			throw new InputMismatchException("Licence Plate number is in the wrong format!");
+		}
+	}
+	//check that license plate number is in the correct format
+	public boolean validPlateNumber(String plateNumber) {
+		//check license plate has the correct length
+		if (plateNumber.length() != 7) {
+			return false;
+		}
+		//check that licence plate has format letter, letter, digit, digit, letter, letter, letter
+		if (Character.isLetter(plateNumber.charAt(0)) && Character.isLetter(plateNumber.charAt(2))
+				&& Character.isDigit(plateNumber.charAt(3)) && Character.isDigit(plateNumber.charAt(4))
+				&& Character.isLetter(plateNumber.charAt(5)) && Character.isLetter(plateNumber.charAt(6))
+				&& Character.isLetter(plateNumber.charAt(7))) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	//getter and setter for destination
@@ -55,14 +83,14 @@ public class Journey {
 		this.fare = fare;
 	}
 	
-	public String toString(Journey j) {
-		return String.format("%-10s", this.taxiRegNumber) + 
-				String.format("%-25s", this.destination) +
-				String.format("%-6d", this.travelDistance) + "miles" +
-				String.format("%-2i", this.numPassengers)+ "people" +
-				"Cost " + String.format("%-6d", this.fare);
+	public String toString() {
+		String outputLine="\n"+String.format("%-10s", this.taxiRegNumber); 
+		outputLine+=String.format("%-25s", this.destination) ;
+		outputLine+=String.format("%4s", this.travelDistance)  ;
+		outputLine+= " miles, "+String.format("%-2d", this.numPassengers)+ " people, " ;
+		outputLine+=" Cost:" + String.format("%4s", this.fare);
+		 return outputLine;
 	}
-
 }
 
 

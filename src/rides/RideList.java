@@ -1,18 +1,11 @@
 package rides;
 
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.jar.Attributes.Name;
 
 public class RideList {
 	private ArrayList<Taxi> taxiList;

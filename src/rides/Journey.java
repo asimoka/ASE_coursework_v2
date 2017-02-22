@@ -10,7 +10,7 @@ public class Journey {
 	private int numPassengers;
 	private Double fare;
 
-	public Journey(String tRegNo, String dest, Double tDist, int numPass, Double fare) {
+	public Journey(String tRegNo, String dest, Double tDist, int numPass) {
 		if (validPlateNumber(tRegNo)) {
 			this.taxiRegNumber=tRegNo;
 		}

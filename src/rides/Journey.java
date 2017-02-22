@@ -56,7 +56,11 @@ public class Journey {
 	}
 	
 	public String toString(Journey j) {
-		return "The trip to " + getDestination() + " cost " + Double.toString(getFare()) + ".";
+		return String.format("%-10s", this.taxiRegNumber) + 
+				String.format("%-25s", this.destination) +
+				String.format("%-6d", this.travelDistance) + "miles" +
+				String.format("%-2i", this.numPassengers)+ "people" +
+				"Cost " + String.format("%-6d", this.fare);
 	}
 
 }

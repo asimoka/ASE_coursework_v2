@@ -42,17 +42,6 @@ public class RideListManager {
 	        
 	        try 
 	        {
-	        
-	        	RidesBuff = new BufferedReader(new FileReader("journeyDetailsInput.csv"));
-		    	String inputJourneyLine = RidesBuff.readLine();  //read first line
-		    	while(inputJourneyLine != null)
-		    	{  
-		    		//stores details from this line in RideList class
-		    		processLineJourney(inputJourneyLine);
-		            //read next line
-		            inputJourneyLine = RidesBuff.readLine();
-		        }
-		    	
 		    	destBuff = new BufferedReader(new FileReader("destinationDetailsInput.csv"));
 		    	String inputDestLine = destBuff.readLine();  //read first line
 		    	while(inputDestLine != null)
@@ -63,6 +52,15 @@ public class RideListManager {
 		            inputDestLine = destBuff.readLine();
 		        }
 		    	
+	        	RidesBuff = new BufferedReader(new FileReader("journeyDetailsInput.csv"));
+		    	String inputJourneyLine = RidesBuff.readLine();  //read first line
+		    	while(inputJourneyLine != null)
+		    	{  
+		    		//stores details from this line in RideList class
+		    		processLineJourney(inputJourneyLine);
+		            //read next line
+		            inputJourneyLine = RidesBuff.readLine();
+		        }
 		    	taxiBuff = new BufferedReader(new FileReader("taxiDetailsInput.csv"));
 		    	String inputTaxiLine = taxiBuff.readLine();  //read first line
 		    	while(inputTaxiLine != null)

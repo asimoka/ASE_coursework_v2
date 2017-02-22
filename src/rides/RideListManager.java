@@ -127,6 +127,11 @@ public class RideListManager {
 		}
 		//this catches missing items if only one or two items
 		//other omissions will result in other errors
+		catch (InputMismatchException ime) {
+			String error = "Input mismatch error in '"
+					+ line + "' - " + ime.getMessage();
+			System.out.println(error);
+		}
 		catch (ArrayIndexOutOfBoundsException air) {
 			String error = "Not enough items in : '" + line
 					+ "' index position : " + air.getMessage();
@@ -151,6 +156,11 @@ public class RideListManager {
 		}
 		//this catches missing items if only one or two items
 		//other omissions will result in other errors
+		catch (InputMismatchException ime) {
+			String error = "Input mismatch error in '"
+					+ line + "' - " + ime.getMessage();
+			System.out.println(error);
+		}
 		catch (ArrayIndexOutOfBoundsException air) {
 			String error = "Not enough items in : '" + line
 					+ "' index position : " + air.getMessage();
@@ -210,6 +220,31 @@ public class RideListManager {
 		return output;
 	}
 	
+	//method to write the report into output file
+		public  void writeToFile(String filename, String report) 
+		{	
+			FileWriter fw;
+			 try 
+			 {
+			    fw = new FileWriter(filename);
+			    fw.write(report+"\n\n");
+			  	fw.close();
+			 }
+			 //message and stop if file not found
+			 catch (FileNotFoundException fnf)
+			 {
+				 System.out.println(filename + " not found ");
+				 System.exit(0);
+			 }
+			 //stack trace here because we don't expect to come here
+			 catch (IOException ioe)
+			 {
+			    ioe.printStackTrace();
+			    System.exit(1);
+			 }
+			 
+			 
+		}
 	public static void main (String arg[]) 
     {
        	//creates demo object which sets up the interface

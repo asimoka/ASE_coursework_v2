@@ -20,8 +20,29 @@ public class Journey {
 		this.destination=dest;
 		this.travelDistance=tDist;
 		this.numPassengers=numPass;
-		this.fare=fare;
+		this.fare=calculateFare();
 	}
+	
+	
+	public Double calculateFare() {
+		double taxiFare = 0;
+		double halfPriceDestination=0;
+		double fullPriceDestination=0;
+		
+		if (travelDistance>10) {
+			halfPriceDestination=travelDistance-10;
+			fullPriceDestination=10.0;
+			taxiFare=(fullPriceDestination*2+halfPriceDestination);
+			}
+	 	else {
+	 		taxiFare=(travelDistance*2);
+	 		}
+		if (taxiFare<3){
+			taxiFare=3.0;
+			}
+		return taxiFare;
+	}
+	
 	
 	//getter and setter for taxiRegNumber
 	public String getTaxiRegNumber() {

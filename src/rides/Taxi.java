@@ -6,7 +6,12 @@ public class Taxi {
 	private String carType;
 	
 	public Taxi(String plateNo, String carType, String driverName){
-		this.plateNumber=plateNo;
+		if (validPlateNumber(plateNumber)) {
+			this.plateNumber=plateNo;
+		}
+		else {
+			throw new InputMismatchException("Licence Plate number is in the wrong format!");
+		}
 		this.carType=carType;
 		this.driverName=driverName;
 	}
@@ -16,7 +21,12 @@ public class Taxi {
 	}
 
 	public void setPlateNumber(String plateNumber) {
-		this.plateNumber = plateNumber;
+		if (validPlateNumber(plateNumber)) {
+			this.plateNumber = plateNumber;
+		}
+		else {
+			throw new InputMismatchException("Licence Plate number is in the wrong format!");
+		}
 	}
 
 	public String getDriverName() {
@@ -35,16 +45,22 @@ public class Taxi {
 		this.carType = carType;
 	}
 	
-	public boolean validPlateNumber(String plateNumber){
-		if (plateNumber.length()!=8){return false;}
-		String letters=plateNumber.substring(0, 1).concat(plateNumber.substring(5, 7));
-		for (int i=0;i<=letters.length();i++){
-			if (!(letters.charAt(i) >= 'A' && letters.charAt(i) <= 'Z')){return false;}
+		//check that license plate number is in the correct format
+	public bool validPlateNumber(String plateNumber) {
+		//check license plate has the correct length
+		if (plateNumber.length != 7) {
+			return false;
 		}
-		if (!(letters.charAt(2) >= '0' && letters.charAt(2) <= '9')){return false;}
-		if (!(letters.charAt(3) >= '0' && letters.charAt(4) <= '9')){return false;}
-		if (letters.charAt(4) != ' '){return false;}
-		return true;
+		//check that licence plate has format letter, letter, digit, digit, letter, letter, letter
+		if (plateNumber.charAt(0).isLetter() && plateNumber.charAt(2).isLetter()
+				&& plateNumber.charAt(3).isDigit() && && plateNumber.charAt(4).isDigit()
+				&& plateNumber.charAt(5).isLetter() && plateNumber.charAt(6).isLetter()
+				&& plateNumber.charAt(7).isLetter()) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 }

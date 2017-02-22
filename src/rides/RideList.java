@@ -29,7 +29,17 @@ public class RideList {
 		destinationList.add(d);
 	}
 	public void addJourney(Journey j) {
-		journeyList.add(j);
+		try {
+			if (validDestination(j.getDestination())) {
+				//check reg number is valid and add
+				driverNamebyRegNumb(j.getTaxiRegNumber());
+				journeyList.add(j);
+			}
+		}
+		catch (noMatchingDriverException e) {
+			//if reg number is invalid, add an asterisk
+			j.setDestination(j.getDestination() + "*");
+		}
 	}
 	public void addJourneyLastYear(String string) {
 		journeyLastYearList.add(string);
@@ -161,6 +171,15 @@ public class RideList {
 			
 		}
 		throw new noMatchingDriverException(regNumber);
+	}
+	
+	public boolean validDestination(String destn) {
+		for (Destination d : destinationList) {
+			if (d.getDestinationName().equals(destn)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	//method that creates a string version of the treemap values ready for output

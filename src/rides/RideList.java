@@ -17,7 +17,7 @@ public class RideList {
 	private ArrayList<Taxi> taxiList;
 	private ArrayList<Destination> destinationList;
 	private ArrayList<Journey> journeyList;
-	private ArrayList<Journey> journeyLastYearList;
+	private ArrayList<String> journeyLastYearList;
 
 	
 	
@@ -25,7 +25,7 @@ public class RideList {
 		taxiList = new ArrayList<Taxi> ();
 		destinationList = new ArrayList<Destination>();
 		journeyList = new ArrayList<Journey>();
-		journeyLastYearList = new ArrayList<Journey>();
+		journeyLastYearList = new ArrayList<String>();
 	}
 	
 	public void addTaxi(Taxi t) {
@@ -37,8 +37,8 @@ public class RideList {
 	public void addJourney(Journey j) {
 		journeyList.add(j);
 	}
-	public void addJourneyLastYear(Journey q) {
-		journeyLastYearList.add(q);
+	public void addJourneyLastYear(String string) {
+		journeyLastYearList.add(string);
 	}
 	
 	public Destination getDestination(int i){
@@ -47,7 +47,7 @@ public class RideList {
 	public Journey getJourney(int i){
 		return journeyList.get(i);
 	}
-	public Journey getJourneyLastYear(int i){
+	public String getJourneyLastYear(int i){
 		return journeyLastYearList.get(i);
 	}
 	//method to Sort JourneyList by highest Fare Price
@@ -77,9 +77,9 @@ public class RideList {
 	
 	
 	
-	public ArrayList<String> getDestinationsThisYear() {
+	public Set<String> getDestinationsThisYear() {
 		
-		ArrayList<String> journeys = new ArrayList<String>();
+		Set<String> journeys = new HashSet<String>();
 		
 		for (Journey j : journeyList) {
 			if (!journeyLastYearList.contains(j)) {
@@ -91,13 +91,13 @@ public class RideList {
 		
 	}
 	
-	public ArrayList<String> getDestinationsLastYear() {
+	public Set<String> getDestinationsLastYear() {
 		
-		ArrayList<String> journeys = new ArrayList<String>();
+		Set<String> journeys = new HashSet<String>();
 		
-		for (Journey j : journeyLastYearList) {
+		for (String j : journeyLastYearList) {
 			if (!journeyList.contains(j)) {
-				journeys.add(j.getDestination());
+				journeys.add(j);
 			}
 		}
 		
@@ -105,12 +105,12 @@ public class RideList {
 		
 	}
 
-	public ArrayList<String> getDestinationsBothYears() {
+	public Set<String> getDestinationsBothYears() {
 		
-ArrayList<String> journeys = new ArrayList<String>();
+		Set<String> journeys = new HashSet<String>();
 		
 		for (Journey j : journeyList) {
-			if (journeyLastYearList.contains(j)) {
+			if (journeyLastYearList.contains(j.getDestination())) {
 				journeys.add(j.getDestination());
 			}
 		}

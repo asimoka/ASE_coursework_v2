@@ -250,8 +250,9 @@ public class RideListManager {
        	//creates demo object which sets up the interface
     	//then just waits for user interaction
     	RideListManager rideListMan = new RideListManager();   	
-    	System.out.print(rideListMan.rideList.outputTreeByDrivers());
-    	//System.out.print(rideListMan.RideList.getDestination(1));
+    	rideListMan.writeToFile("task2report.txt", rideListMan.rideList.outputTreeByDrivers());
+    	rideListMan.writeToFile("task3report.txt", rideListMan.outputJourneysByYear());
+    	rideListMan.writeToFile("task1report.txt", rideListMan.rideList.getFiveExpensiveCheapestJourney());
     }        
 
 }

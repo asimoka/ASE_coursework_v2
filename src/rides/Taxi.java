@@ -1,12 +1,14 @@
 package rides;
 
+import java.util.InputMismatchException;
+
 public class Taxi {
 	private String plateNumber;
 	private String driverName;
 	private String carType;
 	
 	public Taxi(String plateNo, String carType, String driverName){
-		if (validPlateNumber(plateNumber)) {
+		if (validPlateNumber(plateNo)) {
 			this.plateNumber=plateNo;
 		}
 		else {
@@ -16,18 +18,23 @@ public class Taxi {
 		this.driverName=driverName;
 	}
 
-	public String getPlateNumber() {
-		return plateNumber;
-	}
-
-	public void setPlateNumber(String plateNumber) {
-		if (validPlateNumber(plateNumber)) {
-			this.plateNumber = plateNumber;
+	//check that license plate number is in the correct format
+		public boolean validPlateNumber(String plateNumber) {
+			//check license plate has the correct length
+			if (plateNumber.trim().length() != 7) {
+				return false;
+			}
+			//check that licence plate has format letter, letter, digit, digit, letter, letter, letter
+			if (Character.isLetter(plateNumber.charAt(0)) && Character.isLetter(plateNumber.charAt(1))
+					&& Character.isDigit(plateNumber.charAt(2)) && Character.isDigit(plateNumber.charAt(3))
+					&& Character.isLetter(plateNumber.charAt(4)) && Character.isLetter(plateNumber.charAt(5))
+					&& Character.isLetter(plateNumber.charAt(6))) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
-		else {
-			throw new InputMismatchException("Licence Plate number is in the wrong format!");
-		}
-	}
 
 	public String getDriverName() {
 		return driverName;
@@ -44,23 +51,11 @@ public class Taxi {
 	public void setCarType(String carType) {
 		this.carType = carType;
 	}
-	
-		//check that license plate number is in the correct format
-	public bool validPlateNumber(String plateNumber) {
-		//check license plate has the correct length
-		if (plateNumber.length != 7) {
-			return false;
-		}
-		//check that licence plate has format letter, letter, digit, digit, letter, letter, letter
-		if (plateNumber.charAt(0).isLetter() && plateNumber.charAt(2).isLetter()
-				&& plateNumber.charAt(3).isDigit() && && plateNumber.charAt(4).isDigit()
-				&& plateNumber.charAt(5).isLetter() && plateNumber.charAt(6).isLetter()
-				&& plateNumber.charAt(7).isLetter()) {
-			return true;
-		}
-		else {
-			return false;
-		}
+
+	public String getPlateNumber() {
+		return plateNumber;
 	}
+	
+	
 
 }

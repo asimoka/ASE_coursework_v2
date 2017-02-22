@@ -1,7 +1,5 @@
 package rides;
 
-import java.util.InputMismatchException;
-import java.lang.*;
 
 public class Journey {
 	private String taxiRegNumber;
@@ -10,12 +8,12 @@ public class Journey {
 	private int numPassengers;
 	private Double fare;
 
-	public Journey(String tRegNo, String dest, Double tDist, int numPass) {
+	public Journey(String tRegNo, String dest, Double tDist, int numPass) throws incorrectLicensePlateException {
 		if (validPlateNumber(tRegNo)) {
 			this.taxiRegNumber=tRegNo;
 		}
 		else {
-			throw new InputMismatchException("Licence Plate number is in the wrong format!");
+			throw new incorrectLicensePlateException(tRegNo);
 		}
 		this.destination=dest;
 		this.travelDistance=tDist;
@@ -49,12 +47,12 @@ public class Journey {
 		return taxiRegNumber;
 	}
 	
-	public void setTaxiRegNumber(String taxiRegNumber) {
+	public void setTaxiRegNumber(String taxiRegNumber) throws incorrectLicensePlateException {
 		if (validPlateNumber(taxiRegNumber)) {
 			this.taxiRegNumber = taxiRegNumber;
 		}
 		else {
-			throw new InputMismatchException("Licence Plate number is in the wrong format!");
+			throw new incorrectLicensePlateException(taxiRegNumber);
 		}
 	}
 	//check that license plate number is in the correct format
@@ -74,6 +72,7 @@ public class Journey {
 			return false;
 		}
 	}
+	
 	//getter and setter for destination
 	public String getDestination() {
 		return destination;

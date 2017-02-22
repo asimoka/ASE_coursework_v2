@@ -1,11 +1,16 @@
 package rides;
+
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.jar.Attributes.Name;
 
 public class RideList {
@@ -73,6 +78,102 @@ public class RideList {
 		return fiveCheapJourney;
 		
 	}
+	
+	public ArrayList<String> getDestinationsThisYear() {
+		
+		ArrayList<String> journeys = new ArrayList<String>();
+		
+		for (Journey j : journeyList) {
+			if (!journeyLastYearList.contains(j)) {
+				journeys.add(j.getDestination());
+			}
+		}
+		
+		return journeys;
+		
+	}
+	
+	public ArrayList<String> getDestinationsLastYear() {
+		
+		ArrayList<String> journeys = new ArrayList<String>();
+		
+		for (Journey j : journeyLastYearList) {
+			if (!journeyList.contains(j)) {
+				journeys.add(j.getDestination());
+			}
+		}
+		
+		return journeys;
+		
+	}
+
+	public ArrayList<String> getDestinationsBothYears() {
+		
+ArrayList<String> journeys = new ArrayList<String>();
+		
+		for (Journey j : journeyList) {
+			if (journeyLastYearList.contains(j)) {
+				journeys.add(j.getDestination());
+			}
+		}
+		
+		return journeys;
+		
+	}
+	
+	public TreeMap< String,ArrayList<String>> treeByDrivers()
+	{
+		//initializing new tree map to hold the details of the destinations driven by each driver
+		TreeMap< String,ArrayList<String>> destinationsList = new TreeMap< String,ArrayList<String>>();
+		//adds each new driver as a key and new destination as a value into a list
+		for (Journey j :journeyList){
+			String plateNum=j.getTaxiRegNumber();
+			String driverName=driverNamebyRegNumb(plateNum);
+			if (destinationsList.containsKey(driverName)) 
+			{
+				destinationsList.get(driverName).add(j.getDestination());
+			}
+			else
+			{
+				ArrayList<String> al=new ArrayList<String>();
+				al.add(j.getDestination());
+				destinationsList.put(driverName, al);
+			}
+		}
+		return destinationsList;
+	}
+	
+	//method for getting drivers names by taxi registration number
+	public String driverNamebyRegNumb(String regNumber)
+	{
+		for (int i=0;i<taxiList.size();i++)
+		{
+			if (taxiList.get(i).getCarType().equals(regNumber))
+			{ 
+				
+				return taxiList.get(i).getPlateNumber();
+			}
+			
+		}
+		return "--Driver not found--";
+	}
+	
+	//method that creates a string version of the treemap values ready for output
+	public String outputTreeByDrivers()
+	{
+		String output="";
+		Set< Map.Entry< String,ArrayList<String>> > treeSetView = treeByDrivers().entrySet();
+		for (Map.Entry< String,ArrayList<String>> byDrivers:treeSetView)
+		{
+			output+=byDrivers.getKey()+":\n";
+			for (String destinations:byDrivers.getValue())
+			{
+				output+="     "+destinations+"\n";
+			}
+		}
+		return output;
+	}
+	
 	
 	
 

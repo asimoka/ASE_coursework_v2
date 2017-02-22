@@ -126,7 +126,12 @@ ArrayList<String> journeys = new ArrayList<String>();
 		//adds each new driver as a key and new destination as a value into a list
 		for (Journey j :journeyList){
 			String plateNum=j.getTaxiRegNumber();
-			String driverName=driverNamebyRegNumb(plateNum);
+			try {
+				driverName = driverNamebyRegNumb(plateNum);
+			} catch (noMatchingDriverException e) {
+				// TODO Auto-generated catch block
+				driverName="--driver not found corresponding to--"+e;
+			}
 			if (destinationsList.containsKey(driverName)) 
 			{
 				destinationsList.get(driverName).add(j.getDestination());
@@ -153,7 +158,7 @@ ArrayList<String> journeys = new ArrayList<String>();
 			}
 			
 		}
-		return "--Driver not found--";
+		throw new noMatchingDriverException(regNumber);
 	}
 	
 	//method that creates a string version of the treemap values ready for output

@@ -1,5 +1,8 @@
 package rides;
 
+import java.util.InputMismatchException;
+import java.lang.*;
+
 public class Journey {
 	private String taxiRegNumber;
 	private String destination;
@@ -36,21 +39,20 @@ public class Journey {
 	//check that license plate number is in the correct format
 	public boolean validPlateNumber(String plateNumber) {
 		//check license plate has the correct length
-		if (plateNumber.length() != 7) {
+		if (plateNumber.trim().length() != 7) {
 			return false;
 		}
 		//check that licence plate has format letter, letter, digit, digit, letter, letter, letter
-		if (Character.isLetter(plateNumber.charAt(0)) && Character.isLetter(plateNumber.charAt(2))
-				&& Character.isDigit(plateNumber.charAt(3)) && Character.isDigit(plateNumber.charAt(4))
-				&& Character.isLetter(plateNumber.charAt(5)) && Character.isLetter(plateNumber.charAt(6))
-				&& Character.isLetter(plateNumber.charAt(7))) {
+		if (Character.isLetter(plateNumber.charAt(0)) && Character.isLetter(plateNumber.charAt(1))
+				&& Character.isDigit(plateNumber.charAt(2)) && Character.isDigit(plateNumber.charAt(3))
+				&& Character.isLetter(plateNumber.charAt(4)) && Character.isLetter(plateNumber.charAt(5))
+				&& Character.isLetter(plateNumber.charAt(6))) {
 			return true;
 		}
 		else {
 			return false;
 		}
 	}
-	
 	//getter and setter for destination
 	public String getDestination() {
 		return destination;
@@ -91,6 +93,7 @@ public class Journey {
 		outputLine+=" Cost:" + String.format("%4s", this.fare);
 		 return outputLine;
 	}
+
 }
 
 

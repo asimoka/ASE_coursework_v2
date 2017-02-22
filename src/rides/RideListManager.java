@@ -105,13 +105,17 @@ public class RideListManager {
 			travelDistance = Double.parseDouble(inline[2]);
 			numPassengers = Integer.parseInt(inline[3]);
 			double halfPriceDestination=0;
-			if (travelDestination>10)
-			{halfPriceDestination=travelDestination-10;
-			 travelDestination=10;
-			fare=(destination().travelDistance()*2+halfPriceDestination);}
-		 	else
-			{fare=(destination().travelDistance()*2);}
-			if (fare<3){fare=3;}
+			if (travelDistance>10) {
+				halfPriceDestination=travelDistance-10;
+				travelDistance=10.0;
+				fare=(travelDistance*2+halfPriceDestination);
+				}
+		 	else {
+		 		fare=(travelDistance*2);
+		 		}
+			if (fare<3){
+				fare=3.0;
+				}
 			
 
 			Journey j = new Journey(taxiRegNumber, destination, travelDistance, numPassengers, fare);

@@ -142,16 +142,18 @@ ArrayList<String> journeys = new ArrayList<String>();
 	//method for getting drivers names by taxi registration number
 	public String driverNamebyRegNumb(String regNumber)
 	{
+		
 		for (int i=0;i<taxiList.size();i++)
 		{
-			if (taxiList.get(i).getCarType().equals(regNumber))
+			if (taxiList.get(i).getPlateNumber().equals(regNumber))
 			{ 
 				
-				return taxiList.get(i).getPlateNumber();
+				return taxiList.get(i).getCarType();
 			}
 			
 		}
 		return "--Driver not found--";
+	
 	}
 	
 	//method that creates a string version of the treemap values ready for output

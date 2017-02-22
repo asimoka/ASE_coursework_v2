@@ -9,10 +9,6 @@ package rides;
  * 
  */
 import java.io.*;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
 
 public class RideListManager {

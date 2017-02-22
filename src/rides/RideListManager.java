@@ -73,6 +73,15 @@ public class RideListManager {
 		            //read next line
 		            inputTaxiLine = taxiBuff.readLine();
 		        }
+		    	taxiBuff = new BufferedReader(new FileReader(".//src/destination2016.csv"));
+		    	String inputLastYearLine = taxiBuff.readLine();  //read first line
+		    	while(inputLastYearLine != null)
+		    	{  
+		    		//stores details from this line in RideList class
+		    		processLineLastYear(inputLastYearLine);
+		            //read next line
+		            inputLastYearLine = taxiBuff.readLine();
+		        }
 	        }
 	        catch(FileNotFoundException e) 
 	        {
@@ -193,27 +202,44 @@ public class RideListManager {
 		}
 	}
 	
+	public void processLineLastYear(String line) {
+		try {
+			
+			rideList.addJourneyLastYear(line.trim());
+		}
+		//this catches missing items if only one or two items
+		//other omissions will result in other errors
+		catch (ArrayIndexOutOfBoundsException air) {
+			String error = "Not enough items in : '" + line
+					+ "' index position : " + air.getMessage();
+			System.out.println(error);
+		}
+		
+	}
+	
+	
+	
 	public String outputJourneysByYear()
 	{
 		String output="";
 		
-		ArrayList<String> journeysThisYear  = rideList.getDestinationsThisYear();
-		ArrayList<String> journeysLastYear  = rideList.getDestinationsLastYear();
-		ArrayList<String> journeysBothYears = rideList.getDestinationsBothYears();
+		Set<String> journeysThisYear  = rideList.getDestinationsThisYear();
+		Set<String> journeysLastYear  = rideList.getDestinationsLastYear();
+		Set<String> journeysBothYears = rideList.getDestinationsBothYears();
 		
-		output += journeysThisYear.size() + " NEW PLACES IN 2017.";
+		output += journeysThisYear.size() + " NEW PLACES IN 2017. \n";
 		
 		for (String j : journeysThisYear) {
 			output += j + "\n";
 		}
 
-		output += journeysLastYear.size() + " PLACES VISITED IN 2016 ONLY.";
+		output += journeysLastYear.size() + " PLACES VISITED IN 2016 ONLY. \n";
 		
 		for (String j : journeysLastYear) {
 			output += j + "\n";
 		}
 
-		output += journeysBothYears.size() + " PLACES VISITED IN BOTH 2016 AND 2017.";
+		output += journeysBothYears.size() + " PLACES VISITED IN BOTH 2016 AND 2017. \n";
 		
 		for (String j : journeysBothYears) {
 			output += j + "\n";
@@ -223,15 +249,18 @@ public class RideListManager {
 		return output;
 	}
 	
-	public static void main (String arg[]) 
-    {
-       	//creates demo object which sets up the interface
-    	//then just waits for user interaction
-    	RideListManager rideListMan = new RideListManager();   	
-    	rideListMan.writeToFile("task2report.txt", rideListMan.rideList.outputTreeByDrivers());
-    	rideListMan.writeToFile("task3report.txt", rideListMan.outputJourneysByYear());
-    	rideListMan.writeToFile("task1report.txt", rideListMan.rideList.getFiveExpensiveCheapestJourney());
-    }   
+	//method that creates a string version of the treemap values ready for output
+	public String outputTreeByDrivers()
+	{
+		return rideList.outputTreeByDrivers();
+	}
+	
+	//returns a report of the 5 most expensive journeys
+	public String getFiveExpensiveCheapestJourney() {
+		return rideList.getFiveExpensiveCheapestJourney();
+	}
+	
+
 	
 	//method to write the report into output file
 		public  void writeToFile(String filename, String report) 
@@ -258,5 +287,6 @@ public class RideListManager {
 			 
 			 
 		}
+		
 
 }

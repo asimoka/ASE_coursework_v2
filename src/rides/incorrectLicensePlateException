@@ -1,0 +1,9 @@
+package rides;
+
+public class incorrectLicensePlateException extends Exception {
+	
+	public  incorrectLicensePlateException (String incorrectPlate){
+		super("Plate number has invalid format = " + incorrectPlate);
+	}
+	
+}

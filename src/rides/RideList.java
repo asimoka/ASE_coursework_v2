@@ -35,10 +35,20 @@ public class RideList {
 		destinationList.add(d);
 	}
 	public void addJourney(Journey j) {
-		journeyList.add(j);
+		if (destinationList.contains(j.getDestination()) ) {
+			journeyList.add(j);
+		}
+		else {
+			throw new InputMismatchException("Destination specified for journey is not a valid destination!");
+		}
 	}
 	public void addJourneyLastYear(Journey q) {
-		journeyLastYearList.add(q);
+		if (destinationList.contains(q.getDestination()) ) {
+			journeyLastYearList.add(q);
+		}
+		else {
+			throw new InputMismatchException("Destination specified for journey is not a valid destination!");
+		}
 	}
 	
 	public Destination getDestination(int i){

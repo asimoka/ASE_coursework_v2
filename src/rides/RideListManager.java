@@ -10,6 +10,7 @@ package rides;
  */
 import java.io.*;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
@@ -42,6 +43,17 @@ public class RideListManager {
 	        
 	        try 
 	        {
+	        
+	        	RidesBuff = new BufferedReader(new FileReader("journeyDetailsInput.csv"));
+		    	String inputJourneyLine = RidesBuff.readLine();  //read first line
+		    	while(inputJourneyLine != null)
+		    	{  
+		    		//stores details from this line in RideList class
+		    		processLineJourney(inputJourneyLine);
+		            //read next line
+		            inputJourneyLine = RidesBuff.readLine();
+		        }
+		    	
 		    	destBuff = new BufferedReader(new FileReader("destinationDetailsInput.csv"));
 		    	String inputDestLine = destBuff.readLine();  //read first line
 		    	while(inputDestLine != null)
@@ -52,15 +64,6 @@ public class RideListManager {
 		            inputDestLine = destBuff.readLine();
 		        }
 		    	
-	        	RidesBuff = new BufferedReader(new FileReader("journeyDetailsInput.csv"));
-		    	String inputJourneyLine = RidesBuff.readLine();  //read first line
-		    	while(inputJourneyLine != null)
-		    	{  
-		    		//stores details from this line in RideList class
-		    		processLineJourney(inputJourneyLine);
-		            //read next line
-		            inputJourneyLine = RidesBuff.readLine();
-		        }
 		    	taxiBuff = new BufferedReader(new FileReader("taxiDetailsInput.csv"));
 		    	String inputTaxiLine = taxiBuff.readLine();  //read first line
 		    	while(inputTaxiLine != null)
@@ -100,13 +103,14 @@ public class RideListManager {
 			String [] inline = line.split(",");
 			taxiRegNumber = inline[0];
 			destination = inline[1];
-			travelDistance = Double.parseDouble(inline[2]);
-			numPassengers = Integer.parseInt(inline[3]);
+			travelDistance = Double.parseDouble(inline[3]);
+			numPassengers = Integer.parseInt(inline[2]);
 			double halfPriceDestination=0;
+			double fullPriceDestination=0;
 			if (travelDistance>10) {
 				halfPriceDestination=travelDistance-10;
-				travelDistance=10.0;
-				fare=(travelDistance*2+halfPriceDestination);
+				fullPriceDestination=10.0;
+				fare=(fullPriceDestination*2+halfPriceDestination);
 				}
 		 	else {
 		 		fare=(travelDistance*2);
@@ -123,13 +127,13 @@ public class RideListManager {
 					+ line + "' - " + nfe.getMessage();
 			System.out.println(error);
 		}
-		//this catches missing items if only one or two items
-		//other omissions will result in other errors
 		catch (InputMismatchException ime) {
 			String error = "Input mismatch error in '"
 					+ line + "' - " + ime.getMessage();
 			System.out.println(error);
 		}
+		//this catches missing items if only one or two items
+		//other omissions will result in other errors
 		catch (ArrayIndexOutOfBoundsException air) {
 			String error = "Not enough items in : '" + line
 					+ "' index position : " + air.getMessage();
@@ -141,8 +145,8 @@ public class RideListManager {
 	public void processLineTaxi(String line) {
 		try {
 			String [] inline = line.split(",");
-			taxiRegNumber = inline[0];
-			driverName = inline[1];
+			taxiRegNumber = inline[1];
+			driverName = inline[0];
 			carType = inline[2];
 
 			Taxi j = new Taxi(taxiRegNumber, driverName, carType);
@@ -152,18 +156,19 @@ public class RideListManager {
 					+ line + "' - " + nfe.getMessage();
 			System.out.println(error);
 		}
-		//this catches missing items if only one or two items
-		//other omissions will result in other errors
 		catch (InputMismatchException ime) {
 			String error = "Input mismatch error in '"
 					+ line + "' - " + ime.getMessage();
 			System.out.println(error);
 		}
+		//this catches missing items if only one or two items
+		//other omissions will result in other errors
 		catch (ArrayIndexOutOfBoundsException air) {
 			String error = "Not enough items in : '" + line
 					+ "' index position : " + air.getMessage();
 			System.out.println(error);
 		}
+	
 	}
 
 	public void processLineDestination(String line) {
@@ -218,6 +223,16 @@ public class RideListManager {
 		return output;
 	}
 	
+	public static void main (String arg[]) 
+    {
+       	//creates demo object which sets up the interface
+    	//then just waits for user interaction
+    	RideListManager rideListMan = new RideListManager();   	
+    	rideListMan.writeToFile("task2report.txt", rideListMan.rideList.outputTreeByDrivers());
+    	rideListMan.writeToFile("task3report.txt", rideListMan.outputJourneysByYear());
+    	rideListMan.writeToFile("task1report.txt", rideListMan.rideList.getFiveExpensiveCheapestJourney());
+    }   
+	
 	//method to write the report into output file
 		public  void writeToFile(String filename, String report) 
 		{	
@@ -243,14 +258,5 @@ public class RideListManager {
 			 
 			 
 		}
-	public static void main (String arg[]) 
-    {
-       	//creates demo object which sets up the interface
-    	//then just waits for user interaction
-    	RideListManager rideListMan = new RideListManager();   	
-    	rideListMan.writeToFile("task2report.txt", rideListMan.rideList.outputTreeByDrivers());
-    	rideListMan.writeToFile("task3report.txt", rideListMan.outputJourneysByYear());
-    	rideListMan.writeToFile("task1report.txt", rideListMan.rideList.getFiveExpensiveCheapestJourney());
-    }        
 
 }

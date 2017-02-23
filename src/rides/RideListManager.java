@@ -2,10 +2,10 @@ package rides;
 /*
  * This class deals with all of the I/O between the program
  * and the input/output text files. 
+ * reads input files, processes each line of the files then splits them into instance variables for each class
+ * performs various checks to make sure data entered follows common format for names, places, registration numbers, distance, car types, and number of passengers
  * 
- * 
- * 
- * 
+ * code authors Kirsty Duncan and Assem Yerkinova
  * 
  */
 import java.io.*;
@@ -77,6 +77,7 @@ public class RideListManager {
 				System.out.println(e.getMessage());
 				System.exit(1);
 			}
+			//catches if there is a problem with data in the file
 			catch (IOException e) 
 			{
 				e.printStackTrace();
@@ -85,6 +86,7 @@ public class RideListManager {
 			finally  
 			{
 			try
+			//catches if theres a problem closing RidesBuff
 			{
 				RidesBuff.close();
 			}
@@ -149,7 +151,7 @@ public class RideListManager {
 		}
 	
 	}
-
+	//method to process lines from input and convert from one String to various instance variables in the Destination class
 	public void processLineDestination(String line) {
 		try {
 			//split the line up into destination name and travel distance
@@ -169,7 +171,7 @@ public class RideListManager {
 			System.out.println(error);
 		}
 	}
-	
+	//method to process lines from destinations2016.csv
 	public void processLineLastYear(String line) {
 		try {
 			//add this journey destination to the arraylist
@@ -184,9 +186,7 @@ public class RideListManager {
 		}
 		
 	}
-	
-	
-	
+	//method to output to text file journeys organize by year
 	public String outputJourneysByYear()
 	{
 		String output="";

@@ -1,11 +1,16 @@
 package rides;
-
+  /*taxi class holds all details of each taxi instance
+   *that includes such information as taxi registration number
+   *name of the taxi driver and the type of the car*/
 
 public class Taxi {
 	private String plateNumber;
 	private String driverName;
 	private String carType;
 	
+	//constructor of the taxi class 
+	//plate number is checked and in case of wrong format 
+	//incorrectLicensePlateException error can be thrown
 	public Taxi(String plateNo, String carType, String driverName) throws incorrectLicensePlateException{
 		if (validPlateNumber(plateNo)) {
 			this.plateNumber=plateNo;
@@ -35,6 +40,8 @@ public class Taxi {
 			}
 		}
 
+	//getter and setter methods for driverName,
+	//carType and plateNumber instance variables
 	public String getDriverName() {
 		return driverName;
 	}

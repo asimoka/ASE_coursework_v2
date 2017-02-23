@@ -1,8 +1,8 @@
 package rides;
 
   /*exception class that throws an error 
-   *if the given plate number of wrong format (not corresponding
-   to the given format)*/
+   *if the given plate number in a journey object doesn't 
+   *exist in the given taxi list*/
 public class noMatchingDriverException extends Exception {
 	
 	public  noMatchingDriverException (String noMatch){

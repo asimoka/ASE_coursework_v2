@@ -21,88 +21,80 @@ public class RideListManager {
 	private String 	 driverName;
 	private String 	 carType;
 
-	public RideListManager()
-	{
+	//constructor for RideListManager
+	public RideListManager() {
 		//Initialize empty list of Competitors
-    	rideList = new RideList();
-        addRides(); 
-        
-	}
-	
-	 private void addRides() 
-	    {
-	        //load staff data from file
-	        BufferedReader RidesBuff = null;
-	        BufferedReader destBuff = null;
-	        BufferedReader taxiBuff = null;
+		rideList = new RideList();
+		addRides();
+		}
+		//load data from files destinationDetailsInput.csv journeyDetailsInput.csv and taxiDetailsInput.csv
+		 private void addRides() {
+			//construct null buffered readers for input
+			BufferedReader RidesBuff = null;
+			BufferedReader destBuff = null;
+			BufferedReader taxiBuff = null;
 	        
-	        try 
-	        {
-	        	//create buffer for journeys file and read each line
-	        	RidesBuff = new BufferedReader(new FileReader(".//src/journeyDetailsInput.csv"));
-		    	String inputJourneyLine = RidesBuff.readLine();  //read first line
-		    	while(inputJourneyLine != null)
-		    	{  
-		    		//stores details from this line in RideList class
-		    		processLineJourney(inputJourneyLine);
-		            //read next line
-		            inputJourneyLine = RidesBuff.readLine();
-		        }
-		    	//create buffer for destination file and read each line
-		    	destBuff = new BufferedReader(new FileReader(".//src/destinationDetailsInput.csv"));
-		    	String inputDestLine = destBuff.readLine();  //read first line
-		    	while(inputDestLine != null)
-		    	{  
-		    		//stores details from this line in RideList class
-		    		processLineDestination(inputDestLine);
-		            //read next line
-		            inputDestLine = destBuff.readLine();
-		        }
-		    	//create buffer for taxi file and read each line
-		    	taxiBuff = new BufferedReader(new FileReader(".//src/taxiDetailsInput.csv"));
-		    	String inputTaxiLine = taxiBuff.readLine();  //read first line
-		    	while(inputTaxiLine != null)
-		    	{  
-		    		//stores details from this line in RideList class
-		    		processLineTaxi(inputTaxiLine);
-		            //read next line
-		            inputTaxiLine = taxiBuff.readLine();
-		        }
-		    	taxiBuff = new BufferedReader(new FileReader(".//src/destination2016.csv"));
-		    	String inputLastYearLine = taxiBuff.readLine();  //read first line
-		    	while(inputLastYearLine != null)
-		    	{  
-		    		//stores details from this line in RideList class
-		    		processLineLastYear(inputLastYearLine);
-		            //read next line
-		            inputLastYearLine = taxiBuff.readLine();
-		        }
-	        }
-		    //catches if no file was found
-	        catch(FileNotFoundException e) 
-	        {
-	        	System.out.println(e.getMessage());
-	            System.exit(1);
-	        }
-	        catch (IOException e) 
-	        {
-	        	e.printStackTrace();
-	            System.exit(1);        	
-	        }
-	        finally  
-	        {
-	        	try
-	        	{
-	        		RidesBuff.close();
-	        	}
-	        	catch (IOException ioe) 
-	        	{
-	        		//don't do anything
-	        	}
-	        }   	
-	    }
-	 //
-	
+			try {
+				//create buffer for journeys file and read each line
+				RidesBuff = new BufferedReader(new FileReader(".//src/journeyDetailsInput.csv"));
+				String inputJourneyLine = RidesBuff.readLine();  //read first line
+				while(inputJourneyLine != null) {  
+					//stores details from this line in RideList class
+					processLineJourney(inputJourneyLine);
+				    //read next line
+				    inputJourneyLine = RidesBuff.readLine();
+				}
+				//create buffer for destination file and read each line
+				destBuff = new BufferedReader(new FileReader(".//src/destinationDetailsInput.csv"));
+				String inputDestLine = destBuff.readLine();  //read first line
+				while(inputDestLine != null) {  
+					//stores details from this line in RideList class
+					processLineDestination(inputDestLine);
+					//read next line
+					inputDestLine = destBuff.readLine();
+				}
+				//create buffer for taxi file and read each line
+				taxiBuff = new BufferedReader(new FileReader(".//src/taxiDetailsInput.csv"));
+				String inputTaxiLine = taxiBuff.readLine();  //read first line
+				while(inputTaxiLine != null) {  
+					//stores details from this line in RideList class
+					processLineTaxi(inputTaxiLine);
+					//read next line
+					inputTaxiLine = taxiBuff.readLine();
+				}
+				taxiBuff = new BufferedReader(new FileReader(".//src/destination2016.csv"));
+				String inputLastYearLine = taxiBuff.readLine();  //read first line
+				while(inputLastYearLine != null) {  
+					//stores details from this line in RideList class
+					processLineLastYear(inputLastYearLine);
+					//read next line
+					inputLastYearLine = taxiBuff.readLine();
+				}
+			}
+			//catches if no file was found
+			catch(FileNotFoundException e) 
+			{
+				System.out.println(e.getMessage());
+				System.exit(1);
+			}
+			catch (IOException e) 
+			{
+				e.printStackTrace();
+				System.exit(1);        	
+			}
+			finally  
+			{
+			try
+			{
+				RidesBuff.close();
+			}
+			catch (IOException ioe) 
+			{
+			//don't do anything
+			}
+		}   	
+	}
+	//method to process lines from input and convert from one String to various instance variables in the Journey class
 	public void processLineJourney(String line) {
 		try {
 			//split up the information in this line by commas into license plate number, destination, distance and number of passengers
@@ -112,7 +104,6 @@ public class RideListManager {
 			//convert these values to the correct format
 			travelDistance = Double.parseDouble(inline[3]);
 			numPassengers = Integer.parseInt(inline[2]);
-	
 			//create a new object of type journey and add it to the list of journeys
 			Journey j = new Journey(taxiRegNumber, destination, travelDistance, numPassengers);
 			rideList.addJourney(j);
@@ -132,10 +123,9 @@ public class RideListManager {
 		}
 
 	}
-
+	//method to process lines from input and convert from one String to various instance variables in the Taxi class
 	public void processLineTaxi(String line) {
 		try {
-			
 			String [] inline = line.split(",");
 			taxiRegNumber = inline[1];
 			driverName = inline[0];

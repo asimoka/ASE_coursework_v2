@@ -8,11 +8,11 @@ public class Journey {
 	private int numPassengers;
 	private Double fare;
 
-	public Journey(String tRegNo, String dest, Double tDist, int numPass) { //throws incorrectLicensePlateException {
+	public Journey(String tRegNo, String dest, int numPass) { 
 		
 		this.taxiRegNumber=tRegNo;
 		this.destination=dest;
-		this.travelDistance=tDist;
+		this.travelDistance=0.0;
 		this.numPassengers=numPass;
 		this.fare=calculateFare();
 	}
@@ -82,12 +82,17 @@ public class Journey {
 	}
 	
 	public String toString() {
-		String outputLine="\n"+String.format("%-10s", this.taxiRegNumber); 
+		return "" + String.format("%-10s", this.taxiRegNumber) + 
+			String.format("%-25s", this.destination) +
+			String.format("%4s", this.travelDistance)  +
+			" miles, "+String.format("%-2d", this.numPassengers)+ " people, " +
+			" Cost:" + String.format("%4s", this.fare);
+/*		String outputLine=""+String.format("%-10s", this.taxiRegNumber); 
 		outputLine+=String.format("%-25s", this.destination) ;
 		outputLine+=String.format("%4s", this.travelDistance)  ;
 		outputLine+= " miles, "+String.format("%-2d", this.numPassengers)+ " people, " ;
 		outputLine+=" Cost:" + String.format("%4s", this.fare);
-		 return outputLine;
+		 return outputLine;*/
 	}
 
 }

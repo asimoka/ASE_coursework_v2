@@ -38,7 +38,7 @@ public class RideListManager {
 	        
 	        try 
 	        {
-	        
+	        	//create buffer for journeys file and read each line
 	        	RidesBuff = new BufferedReader(new FileReader(".//src/journeyDetailsInput.csv"));
 		    	String inputJourneyLine = RidesBuff.readLine();  //read first line
 		    	while(inputJourneyLine != null)
@@ -48,7 +48,7 @@ public class RideListManager {
 		            //read next line
 		            inputJourneyLine = RidesBuff.readLine();
 		        }
-		    	
+		    	//create buffer for destination file and read each line
 		    	destBuff = new BufferedReader(new FileReader(".//src/destinationDetailsInput.csv"));
 		    	String inputDestLine = destBuff.readLine();  //read first line
 		    	while(inputDestLine != null)
@@ -58,7 +58,7 @@ public class RideListManager {
 		            //read next line
 		            inputDestLine = destBuff.readLine();
 		        }
-		    	
+		    	//create buffer for taxi file and read each line
 		    	taxiBuff = new BufferedReader(new FileReader(".//src/taxiDetailsInput.csv"));
 		    	String inputTaxiLine = taxiBuff.readLine();  //read first line
 		    	while(inputTaxiLine != null)
@@ -78,6 +78,7 @@ public class RideListManager {
 		            inputLastYearLine = taxiBuff.readLine();
 		        }
 	        }
+		    //catches if no file was found
 	        catch(FileNotFoundException e) 
 	        {
 	        	System.out.println(e.getMessage());
@@ -104,15 +105,20 @@ public class RideListManager {
 	
 	public void processLineJourney(String line) {
 		try {
+			//split up the information in this line by commas into license plate number, destination, distance and number of passengers
 			String [] inline = line.split(",");
 			taxiRegNumber = inline[0];
 			destination = inline[1];
+			//convert these values to the correct format
 			travelDistance = Double.parseDouble(inline[3]);
 			numPassengers = Integer.parseInt(inline[2]);
 	
+			//create a new object of type journey and add it to the list of journeys
 			Journey j = new Journey(taxiRegNumber, destination, travelDistance, numPassengers);
 			rideList.addJourney(j);
-		} catch (NumberFormatException nfe) {
+		}
+		//if one of the numeric values is not in the correct format to be converted to double/integer
+		catch (NumberFormatException nfe) {
 			String error = "Number conversion error in '"
 					+ line + "' - " + nfe.getMessage();
 			System.out.println(error);
@@ -129,6 +135,7 @@ public class RideListManager {
 
 	public void processLineTaxi(String line) {
 		try {
+			
 			String [] inline = line.split(",");
 			taxiRegNumber = inline[1];
 			driverName = inline[0];
@@ -136,11 +143,8 @@ public class RideListManager {
 
 			Taxi j = new Taxi(taxiRegNumber, driverName, carType);
 			rideList.addTaxi(j);
-		} catch (NumberFormatException nfe) {
-			String error = "Number conversion error in '"
-					+ line + "' - " + nfe.getMessage();
-			System.out.println(error);
 		}
+		//if license plate was not in the correct format
 		catch (incorrectLicensePlateException ilpe) {
 			String error = "Input mismatch error in '"
 					+ line + "' - " + ilpe.getMessage();
@@ -158,17 +162,15 @@ public class RideListManager {
 
 	public void processLineDestination(String line) {
 		try {
+			//split the line up into destination name and travel distance
 			String [] inline = line.split(",");
 			destination = inline[0];
 			travelDistance = Double.parseDouble(inline[1]);
 
+			//create a new ofbject of type destination using these values
 			Destination j = new Destination(destination, travelDistance);
+			//add to the arraylist for valid destinations
 			rideList.addDestination(j);
-		} catch (NumberFormatException nfe) {
-			String error = "Number conversion error in '"
-					+ line + "' - " + nfe.getMessage();
-			System.out.println(error);
-		}
 		//this catches missing items if only one or two items
 		//other omissions will result in other errors
 		catch (ArrayIndexOutOfBoundsException air) {
@@ -180,7 +182,7 @@ public class RideListManager {
 	
 	public void processLineLastYear(String line) {
 		try {
-			
+			//add this journey destination to the arraylist
 			rideList.addJourneyLastYear(line.trim());
 		}
 		//this catches missing items if only one or two items
@@ -198,30 +200,29 @@ public class RideListManager {
 	public String outputJourneysByYear()
 	{
 		String output="";
-		
+		//initialise hashsets and fill them with information on destinations for each year
 		Set<String> journeysThisYear  = rideList.getDestinationsThisYear();
 		Set<String> journeysLastYear  = rideList.getDestinationsLastYear();
 		Set<String> journeysBothYears = rideList.getDestinationsBothYears();
 		
 		output += journeysThisYear.size() + " NEW PLACES IN 2017. \n";
-		
+		//print each journey visited this year only on a separate line
 		for (String j : journeysThisYear) {
 			output += j + "\n";
 		}
 
 		output += journeysLastYear.size() + " PLACES VISITED IN 2016 ONLY. \n";
-		
+		//print each journey visited last year only on a separate line
 		for (String j : journeysLastYear) {
 			output += j + "\n";
 		}
 
 		output += journeysBothYears.size() + " PLACES VISITED IN BOTH 2016 AND 2017. \n";
-		
+		//print each journey visited both years on a separate line
 		for (String j : journeysBothYears) {
 			output += j + "\n";
 		}
-
-		
+		//return the full report as a string to be output
 		return output;
 	}
 	

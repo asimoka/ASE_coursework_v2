@@ -1,5 +1,6 @@
 package rides;
-
+  /*rideList class is for integrating the work with all 
+   *array lists */
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;

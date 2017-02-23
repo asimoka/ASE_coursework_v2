@@ -1,21 +1,20 @@
 package rides;
 
-  /*destination class holds all details of each destination
-   *that includes such information as destination name
-   *and distance in miles*/
-
+/*destination class holds details of a valid destination destination.
+ *Includes such information as destination name
+ *and distance in miles*/
 
 public class Destination {
+	//instance variables
 	private String destinationName;
 	private double distance;
 	
-	//constructor for the Destination class
+	//constructor
 	public Destination (String destName, double distance){
 		this.destinationName=destName;
 		this.distance=distance;
 	}
-
-	//getters and setters for all instance variables
+	//getters and setters
 	public String getDestinationName() {
 		return destinationName;
 	}

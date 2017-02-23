@@ -1,8 +1,11 @@
 package rides;
-
+   /*exception class that throws an error 
+   *if the given plate number of wrong format (not corresponding
+   to the given format)*/
 public class incorrectLicensePlateException extends Exception {
 	
 	public  incorrectLicensePlateException (String incorrectPlate){
+		//message to be displayed in case of mismatch
 		super("Plate number has invalid format = " + incorrectPlate);
 	}
 	

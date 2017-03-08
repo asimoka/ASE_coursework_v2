@@ -1,18 +1,21 @@
 package rides;
-
-import java.util.InputMismatchException;
+/* Class representing a Taxi belonging to the company
+ * a taxi has a license plate number, a driver name and a car type
+ * contains methods to check inputted license plate number,
+ * getters and setters
+ */
 
 public class Taxi {
 	private String plateNumber;
 	private String driverName;
 	private String carType;
 	
-	public Taxi(String plateNo, String carType, String driverName){
+	public Taxi(String plateNo, String carType, String driverName) throws incorrectLicensePlateException{
 		if (validPlateNumber(plateNo)) {
 			this.plateNumber=plateNo;
 		}
 		else {
-			throw new InputMismatchException("Licence Plate number is in the wrong format!");
+			throw new incorrectLicensePlateException(plateNo);
 		}
 		this.carType=carType;
 		this.driverName=driverName;
@@ -36,6 +39,7 @@ public class Taxi {
 			}
 		}
 
+	//getters and setters
 	public String getDriverName() {
 		return driverName;
 	}
